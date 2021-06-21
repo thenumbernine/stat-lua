@@ -27,4 +27,8 @@ function Set:__tostring()
 	return str:concat'\n'
 end
 
+function Set.__concat(a,b)
+	return tostring(a) .. tostring(b)
+end
+
 return Set
