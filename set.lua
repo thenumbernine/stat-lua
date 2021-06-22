@@ -6,23 +6,27 @@ local Stat = require 'stat'
 local Set = class()
 
 function Set:init(...)
-	self.stats = table()
 	for i=1,select('#', ...) do
-		self.stats[i] = Stat()
-		self.stats[i].name = select(i, ...)
+		local k = select(i, ...)
+		assert(type(k) == 'string', "don't let your indexes and names collide")
+		local s = Stat()
+		s.name = k
+		self[i] = s
+		self[k] = s
 	end
 end
 
+-- TODO function for accumulating using k=v?
 function Set:accum(...)
 	for i=1,select('#', ...) do
-		self.stats[i]:accum( (select(i, ...)) )
+		self[i]:accum( (select(i, ...)) )
 	end
 end
 
 function Set:__tostring()
 	local str = table()
-	for _,stat in ipairs(self.stats) do
-		str:insert(stat.name..' = {'..stat..'},')
+	for i,s in ipairs(self) do
+		str:insert(s.name..' = {'..s..'},')
 	end
 	return str:concat'\n'
 end
