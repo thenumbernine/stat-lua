@@ -44,4 +44,20 @@ function Bin.__concat(a,b)
 	return tostring(a) .. tostring(b)
 end
 
+-- don't calc unless you ask for it
+-- get the left and right boundaries of each bin
+function Bin:getCenters()
+	local dx = (self.max - self.min) / self.count
+	return range(self.count):mapi(function(i)
+		return (i - .5) * dx + self.min
+	end)
+end
+
+-- returns the data - centers vs counts - in a gnuplot text format
+function Bin:getTextData()
+	return self:getCenters():mapi(function(center,i)
+		return center..'\t'..self[i]
+	end):concat'\n'
+end
+
 return Bin
