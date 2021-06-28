@@ -44,10 +44,15 @@ function Bin.__concat(a,b)
 	return tostring(a) .. tostring(b)
 end
 
+-- get length of a single bin
+function Bin:getDx()
+	return (self.max - self.min) / self.count
+end
+
 -- don't calc unless you ask for it
 -- get the left and right boundaries of each bin
 function Bin:getCenters()
-	local dx = (self.max - self.min) / self.count
+	local dx = self:getDx()
 	return range(self.count):mapi(function(i)
 		return (i - .5) * dx + self.min
 	end)
