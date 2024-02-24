@@ -63,7 +63,7 @@ function Bin:normalize()
 	for i=1,self.count do
 		sum = sum + self[i]
 	end
-	if sum == 0 then break end
+	if sum == 0 then return end
 	for i=1,self.count do
 		self[i] = self[i] / sum
 	end
