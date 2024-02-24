@@ -58,6 +58,16 @@ function Bin:getCenters()
 	end)
 end
 
+function Bin:normalize()
+	local sum = 0
+	for i=1,self.count do
+		sum = sum + self[i]
+	end
+	for i=1,self.count do
+		self[i] = self[i] / sum
+	end
+end
+
 -- returns the data - centers vs counts - in a gnuplot text format
 function Bin:getTextData()
 	return self:getCenters():mapi(function(center,i)
