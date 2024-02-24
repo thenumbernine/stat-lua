@@ -17,8 +17,7 @@ function Bin:init(min, max, count)
 	end
 end
 
-function Bin:accum(v)
-	if v ~= v then return end	-- no nans at all, sorry.  inf maybe, take it up with .clamp
+function Bin:indexForValue(v)
 	local n = self.count
 	local i = math.floor(n * (v - self.min) / (self.max - self.min))
 	if self.clamp then
@@ -26,6 +25,12 @@ function Bin:accum(v)
 	end
 	if i < 0 or i >= n then return end
 	i = i + 1
+	return i
+end
+
+function Bin:accum(v)
+	if v ~= v then return end	-- no nans at all, sorry.  inf maybe, take it up with .clamp
+	local i = self:indexForValue(v)
 	self[i] = self[i] + 1
 end
 
