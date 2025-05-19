@@ -1,0 +1,10 @@
+name = "stat"
+files = {
+	["bin.lua"] = "stat/bin.lua",
+	["set.lua"] = "stat/set.lua",
+	["stat-dev-1.rockspec"] = "stat/stat-dev-1.rockspec",
+	["stat.lua"] = "stat/stat.lua",
+}
+deps = {
+	"ext",
+}
